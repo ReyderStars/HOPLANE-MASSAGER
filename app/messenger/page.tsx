@@ -76,19 +76,7 @@ const handleSendMessage = async (text: string) => {
     [selectedChat]: [...(prev[selectedChat] || []), newMessage],
   }));
 };
-const handleNewChat = () => {
-
-  setChats((prev) => [...prev, newChat]);
-
-  setMessagesByChat((prev) => ({
-    ...prev,
-    [newChat.id]: [],
-  }));
-
-  setSelectedChat(newChat.id);
-  setSelectedChannel(null);
-};
-
+  
   const handleAddContact = () => {
     // TODO: Реализовать добавление собеседника
     console.log('Add contact');
