@@ -8,6 +8,7 @@ import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 import { Sidebar } from '@/components/messenger/Sidebar';
 import { ChatWindow } from '@/components/messenger/ChatWindow';
 import { CreateChannelModal } from '@/components/messenger/CreateChannelModal';
+import { CreateGroupModal } from '@/components/messenger/CreateGroupModal';
 
 interface Chat {
   id: string;
@@ -43,6 +44,7 @@ export default function MessengerPage() {
 
   // Modal state
   const [showCreateChannelModal, setShowCreateChannelModal] = useState(false);
+  const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
 
   useEffect(() => {
     if (!loading && !currentUser) {
@@ -104,13 +106,11 @@ export default function MessengerPage() {
 
   const handleAddContact = () => {
     // TODO: Реализовать добавление собеседника
-    console.log('Add contact');
-  };
+    console.log('Add 
 
-  const handleCreateGroup = () => {
-    // TODO: Реализовать создание группы
-    console.log('Create group');
-  };
+const handleCreateGroup = () => {
+  setShowCreateGroupModal(true);
+};
 
   const handleCreateChannel = async (
     name: string,
@@ -225,7 +225,22 @@ export default function MessengerPage() {
         isOpen={showCreateChannelModal}
         onClose={() => setShowCreateChannelModal(false)}
         onCreateChannel={handleCreateChannel}
-      />
+      /> 
+<CreateGroupModal
+  isOpen={showCreateGroupModal}
+  onClose={() => setShowCreateGroupModal(false)}
+  onCreateGroup={async (name, description, imageUrl, members) => {
+    const newChat = {
+      id: Date.now().toString(),
+      name,
+    };
+
+    setChats((prev) => [...prev, newChat]);
+    setSelectedChat(newChat.id);
+    setSelectedChannel(null);
+    setShowCreateGroupModal(false);
+  }}
+/>
     </div>
   );
 }
