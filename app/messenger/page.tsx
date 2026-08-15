@@ -53,37 +53,14 @@ export default function MessengerPage() {
   }, [currentUser, loading, router]);
 
   // Demo chats and channels initialization
-  useEffect(() => {
-    if (userData) {
-      const demoChats: Chat[] = [
-        { id: '1', name: 'Основной чат' },
-        { id: '2', name: 'Тестовая беседа' },
-      ];
-      setChats(demoChats);
-      setSelectedChat('1');
-      setMessages([
-        {
-          id: '1',
-          text: 'Привет! Добро пожаловать в HOPLANE Messenger! 🚀',
-          sender: 'admin',
-          senderUsername: 'Администратор',
-          timestamp: new Date(Date.now() - 3600000),
-        },
-        {
-          id: '2',
-          text: 'Это современный мессенджер для общения',
-          sender: 'admin',
-          senderUsername: 'Администратор',
-          timestamp: new Date(Date.now() - 3500000),
-        },
-      ]);
-    }
-  }, [userData]);
-
-  const handleSendMessage = async (text: string) => {
-    if (!selectedChat || !userData) return;
-
-    const handleSendMessage = async (text: string) => {
+useEffect(() => {
+  if (userData) {
+    setChats([]);
+    setSelectedChat(null);
+    setMessagesByChat({});
+  }
+}, [userData]);
+const handleSendMessage = async (text: string) => {
   if (!selectedChat || !userData) return;
 
   const newMessage: Message = {
@@ -99,7 +76,6 @@ export default function MessengerPage() {
     [selectedChat]: [...(prev[selectedChat] || []), newMessage],
   }));
 };
-
 const handleNewChat = () => {
   const newChat: Chat = {
     id: Date.now().toString(),
