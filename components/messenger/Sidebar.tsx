@@ -30,7 +30,6 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({
   selectedChat,
-  selectedChat,
   chats,
   onSelectChat,
   channels,
