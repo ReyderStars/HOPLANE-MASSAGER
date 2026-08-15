@@ -77,10 +77,6 @@ const handleSendMessage = async (text: string) => {
   }));
 };
 const handleNewChat = () => {
-  const newChat: Chat = {
-    id: Date.now().toString(),
-    name: `Новый чат ${chats.length + 1}`,
-  };
 
   setChats((prev) => [...prev, newChat]);
 
@@ -200,12 +196,6 @@ const handleCreateGroup = () => {
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center text-gray-500">
             <p className="text-lg font-semibold mb-4">Выберите чат для начала</p>
-            <button
-              onClick={handleNewChat}
-              className="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-all"
-            >
-              ✨ Создать новый чат
-            </button>
           </div>
         )}
       </div>
