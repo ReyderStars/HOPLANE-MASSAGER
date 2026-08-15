@@ -67,7 +67,7 @@ export const CreateGroupModal: React.FC<CreateGroupModalProps> = ({
     setLoading(true);
 
     try {
-      await onCreateGroup(name, description, imageUrl);
+      await onCreateGroup(name, description, imageUrl, members);
       // Reset form
       setName('');
       setDescription('');
