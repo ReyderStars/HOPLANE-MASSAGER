@@ -35,7 +35,7 @@ export default function MessengerPage() {
   const router = useRouter();
   const [chats, setChats] = useState<Chat[]>([]);
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messagesByChat, setMessagesByChat] = useState<Record<string, Message[]>>({});
   const [showSidebar, setShowSidebar] = useState(false);
 
   // Channel state
@@ -83,26 +83,39 @@ export default function MessengerPage() {
   const handleSendMessage = async (text: string) => {
     if (!selectedChat || !userData) return;
 
-    const newMessage: Message = {
-      id: Date.now().toString(),
-      text,
-      sender: currentUser?.uid || '',
-      senderUsername: userData.username,
-      timestamp: new Date(),
-    };
+    const handleSendMessage = async (text: string) => {
+  if (!selectedChat || !userData) return;
 
-    setMessages([...messages, newMessage]);
+  const newMessage: Message = {
+    id: Date.now().toString(),
+    text,
+    sender: currentUser?.uid || '',
+    senderUsername: userData.username,
+    timestamp: new Date(),
   };
 
-  const handleNewChat = () => {
-    const newChat: Chat = {
-      id: Date.now().toString(),
-      name: `Новый чат ${chats.length + 1}`,
-    };
-    setChats([...chats, newChat]);
-    setSelectedChat(newChat.id);
-    setMessages([]);
+  setMessagesByChat((prev) => ({
+    ...prev,
+    [selectedChat]: [...(prev[selectedChat] || []), newMessage],
+  }));
+};
+
+const handleNewChat = () => {
+  const newChat: Chat = {
+    id: Date.now().toString(),
+    name: `Новый чат ${chats.length + 1}`,
   };
+
+  setChats((prev) => [...prev, newChat]);
+
+  setMessagesByChat((prev) => ({
+    ...prev,
+    [newChat.id]: [],
+  }));
+
+  setSelectedChat(newChat.id);
+  setSelectedChannel(null);
+};
 
   const handleAddContact = () => {
     // TODO: Реализовать добавление собеседника
@@ -203,11 +216,11 @@ const handleCreateGroup = () => {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col w-full md:w-auto">
         {selectedChat || selectedChannel ? (
-          <ChatWindow
-            chatName={displayName}
-            messages={messages}
-            onSendMessage={handleSendMessage}
-          />
+       <ChatWindow
+         chatName={displayName}
+         messages={selectedChat ? (messagesByChat[selectedChat] || []) : []}
+         onSendMessage={handleSendMessage}
+       />
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center text-gray-500">
             <p className="text-lg font-semibold mb-4">Выберите чат для начала</p>
