@@ -17,7 +17,6 @@ interface Channel {
 }
 
 interface SidebarProps {
-  onNewChat: () => void;
   selectedChat: string | null;
   chats: Array<{ id: string; name: string }>;
   onSelectChat: (chatId: string) => void;
