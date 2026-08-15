@@ -147,8 +147,8 @@ export default function MessengerPage() {
   }
 
   const displayName = selectedChannel
-    ? channels.find((c) => c.id === selectedChannel)?.name
-    : chats.find((c) => c.id === selectedChat)?.name || 'Чат';
+    ? (channels.find((c) => c.id === selectedChannel)?.name || 'Канал')
+    : (chats.find((c) => c.id === selectedChat)?.name || 'Чат');
 
   return (
     <div className="flex h-screen bg-white overflow-hidden">
