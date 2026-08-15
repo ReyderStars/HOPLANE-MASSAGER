@@ -106,7 +106,8 @@ export default function MessengerPage() {
 
   const handleAddContact = () => {
     // TODO: Реализовать добавление собеседника
-    console.log('Add 
+    console.log('Add contact');
+  };
 
 const handleCreateGroup = () => {
   setShowCreateGroupModal(true);
