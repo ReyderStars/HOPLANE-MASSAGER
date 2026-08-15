@@ -29,7 +29,7 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
-  onNewChat,
+  selectedChat,
   selectedChat,
   chats,
   onSelectChat,
@@ -116,16 +116,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </button>
           </div>
         )}
-      </div>
-
-      {/* New Chat Button */}
-      <div className="p-4">
-        <button
-          onClick={onNewChat}
-          className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95"
-        >
-          ✨ Новый чат
-        </button>
       </div>
 
       {/* Search */}
