@@ -144,7 +144,6 @@ const handleCreateGroup = () => {
       >
         <div className="h-full w-80 bg-white">
           <Sidebar
-            onNewChat={handleNewChat}
             selectedChat={selectedChat}
             chats={chats}
             onSelectChat={(chatId) => {
